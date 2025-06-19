@@ -1,0 +1,31 @@
+spring:
+  config:
+    import: optional:dotenv:.env
+  datasource:
+    url: jdbc:mysql://${EC2_DB}:3306/piece_of_cake
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+  data:
+    redis:
+      host: ${EC2_DB}
+      port: 6379
+      password: ${REDIS_PASSWORD}
+
+    mongodb:
+      uri: mongodb+srv://${EC2_MONGOID}:${EC2_MONGOPW}@spharos.uxnx7ao.mongodb.net/piece_of_cake?retryWrites=true&w=majority
+      auto-index-creation: true
+
+  kafka:
+    bootstrap-servers: ${EC2_HOST2}:10000,${EC2_HOST2}:10001,${EC2_HOST2}:10002
+    consumer:
+      group-id: product-read-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
