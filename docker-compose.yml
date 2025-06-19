@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  auth-service:
+    container_name: member-service
+    image: ${DOCKER_USERNAME}/member-service:latest
+    ports:
+      - "8089:8089"
+    env_file:
+      - .env
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true
