@@ -8,9 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReadProfileImageResponseVo {
     private String profileImageUrl;
+    private String nickname;
 
     @Builder
-    public ReadProfileImageResponseVo(String profileImageUrl) {
+    public ReadProfileImageResponseVo(
+            String profileImageUrl,
+            String nickname
+    ) {
         this.profileImageUrl = profileImageUrl;
+        this.nickname = nickname;
     }
 }
