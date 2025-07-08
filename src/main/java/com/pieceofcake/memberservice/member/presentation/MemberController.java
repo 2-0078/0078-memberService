@@ -20,6 +20,10 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @Operation(
+            summary = "이메일 중복 확인",
+            description = "이메일이 이미 사용 중인지 확인합니다."
+    )
     @GetMapping("/check-email")
     public BaseResponseEntity<CheckEmailResponseVo> checkEmail(
             @RequestParam("email") String email
@@ -29,6 +33,10 @@ public class MemberController {
         );
     }
 
+    @Operation(
+            summary = "닉네임 중복 확인",
+            description = "닉네임이 이미 사용 중인지 확인합니다."
+    )
     @GetMapping("/check-nickname")
     public BaseResponseEntity<CheckNicknameResponseVo> checkNickname(
             @RequestParam("nickname") String nickname
@@ -38,6 +46,24 @@ public class MemberController {
         );
     }
 
+    @Operation(
+            summary = "전화번호 중복 확인",
+            description = "phoneNumber를 통해 이미 등록된 전화번호인지 확인합니다. " +
+                    "response body에는 available 이 포함됩니다."
+    )
+    @GetMapping("/check-phone-number")
+    public BaseResponseEntity<CheckPhoneNumberResponseVo> checkPhoneNumber(
+            @RequestParam("phoneNumber") String phoneNumber
+    ) {
+        return new BaseResponseEntity<>(
+                memberService.checkPhoneNumber(CheckPhoneNumberRequestDto.of(phoneNumber)).toVo()
+        );
+    }
+
+    @Operation(
+            summary = "이메일 찾기",
+            description = "이름과 전화번호를 통해 사용자의 이메일을 찾습니다."
+    )
     @GetMapping("/find-email")
     public BaseResponseEntity<FindEmailResponseVo> findEmail(
             @ModelAttribute FindEmailRequestVo findEmailRequestVo
@@ -47,6 +73,10 @@ public class MemberController {
         );
     }
 
+    @Operation(
+            summary = "회원 정보 수정",
+            description = "회원의 닉네임, 프로필이미지를 업데이트합니다."
+    )
     @PutMapping("")
     public BaseResponseEntity<Void> updateMember(
             @RequestHeader(value = "X-Member-Uuid") String memberUuid,
@@ -56,6 +86,10 @@ public class MemberController {
         return new BaseResponseEntity<>(BaseResponseStatus.MEMBER_UPDATE_SUCCESS);
     }
 
+    @Operation(
+            summary = "회원 정보 조회",
+            description = "회원의 프로필 정보를 조회합니다."
+    )
     @GetMapping("")
     public BaseResponseEntity<ReadMemberResponseVo> readMember(
             @RequestHeader(value = "X-Member-Uuid") String memberUuid
@@ -87,6 +121,10 @@ public class MemberController {
         );
     }
 
+    @Operation(
+            summary = "프로필 이미지 업로드",
+            description = "프로필 이미지를 업로드합니다. "
+    )
     @PostMapping("/profile-image")
     public BaseResponseEntity<Void> uploadProfileImage(
             @RequestHeader(value = "X-Member-Uuid") String memberUuid,
@@ -96,5 +134,7 @@ public class MemberController {
 
         return new BaseResponseEntity<>(BaseResponseStatus.SUCCESS);
     }
+
+
 
 }

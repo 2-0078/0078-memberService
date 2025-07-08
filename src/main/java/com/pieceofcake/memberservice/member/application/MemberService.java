@@ -7,6 +7,7 @@ public interface MemberService {
     void createMember(CreateMemberDto createMemberDto);
     CheckEmailResponseDto checkEmail(CheckEmailRequestDto checkEmailRequestDto);
     CheckNicknameResponseDto checkNickname(CheckNicknameRequestDto checkNicknameRequestDto);
+    CheckPhoneNumberResponseDto checkPhoneNumber(CheckPhoneNumberRequestDto checkPhoneNumberRequestDto);
     FindEmailResponseDto findEmail(FindEmailRequestDto findEmailRequestDto);
     void updateMember(UpdateMemberRequestDto updateMemberRequestDto);
     ReadMemberResponseDto readMember(ReadMemberRequestDto readMemberRequestDto);
