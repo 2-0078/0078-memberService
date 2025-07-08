@@ -45,6 +45,15 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public CheckPhoneNumberResponseDto checkPhoneNumber(CheckPhoneNumberRequestDto checkPhoneNumberRequestDto) {
+        boolean available = !memberRepository.existsByPhoneNumber(checkPhoneNumberRequestDto.getPhoneNumber());
+
+        return CheckPhoneNumberResponseDto.builder()
+                .available(available)
+                .build();
+    }
+
+    @Override
     public FindEmailResponseDto findEmail(FindEmailRequestDto findEmailRequestDto) {
 
         if (!"true".equals(redisUtil.get("sms:FIND_EMAIL:Verified:" + findEmailRequestDto.getPhoneNumber()))) {
